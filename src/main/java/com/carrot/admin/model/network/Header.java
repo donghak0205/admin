@@ -24,6 +24,8 @@ public class Header<T> {
 
     private T data;
 
+    private Pagination pagination;
+
 
     //(Response) OK
     public static <T> Header<T> OK(){
@@ -44,17 +46,16 @@ public class Header<T> {
                 .build();
     }
 
+    public static <T> Header<T> OK(T data, Pagination pagination){
+        return (Header<T>) Header.builder() //Header<T>으로 형변환
+                .transactionTime(LocalDateTime.now())
+                .resultCode("OK")
+                .description("OK")
+                .data(data)
+                .pagination(pagination)
+                .build();
+    }
 
-//
-//    // DATA OK
-//    public static <T> Header<T> OK(T data){
-//        return (Header<T>)Header.builder()
-//                .transactionTime(LocalDateTime.now())
-//                .resultCode("OK")
-//                .description("OK")
-//                .data(data)
-//                .build();
-//    }
     //(Response) DATA ERROR
     public static <T> Header<T> ERROR(String description){ //description은 그때그때마다 바뀔수가 있다.
         return (Header<T>) Header.builder() //Header<T>으로 형변환
